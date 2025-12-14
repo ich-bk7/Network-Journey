@@ -75,7 +75,7 @@ export interface ChatMessage {
 // --- VIRTUAL LAB TYPES (V2 - Full Stack) ---
 
 export type DeviceType = 'AccessPoint' | 'Switch' | 'Router' | 'Firewall' | 'Cloud';
-export type VendorName = 'Cisco' | 'Juniper' | 'Fortinet' | 'Palo Alto' | 'Aruba' | 'Extreme' | 'Internet';
+export type VendorName = 'Cisco' | 'Juniper' | 'Fortinet' | 'Palo Alto' | 'Aruba' | 'Extreme' | 'Internet' | 'Azure';
 
 export interface InterfaceConfig {
   name: string;
@@ -96,11 +96,16 @@ export interface RouteConfig {
 export interface PolicyConfig {
   id: number;
   name: string;
-  fromZone: string;
-  toZone: string;
+  fromZone?: string;
+  toZone?: string;
   action: 'allow' | 'deny';
-  srcAddr: string;
-  dstAddr: string;
+  srcAddr?: string;
+  dstAddr?: string;
+  // Azure NSG Specifics
+  priority?: number;
+  direction?: 'Inbound' | 'Outbound';
+  protocol?: string;
+  destPort?: string;
 }
 
 export interface DeviceState {
@@ -112,7 +117,7 @@ export interface DeviceState {
   cliContext: string[]; // ['interfaces', 'ge-0/0/0']
   interfaces: Record<string, InterfaceConfig>;
   routes: RouteConfig[];
-  policies: PolicyConfig[]; // Firewall policies
+  policies: PolicyConfig[]; // Firewall policies / NSG Rules
   vlans: Record<number, string>; // ID -> Name
   history: string[]; // CLI History
   configBuffer?: Partial<DeviceState>; // For Juniper 'candidate config'
@@ -143,6 +148,24 @@ export interface LabSession {
   documentation: LabDocumentation; // SOW Requirement
 }
 
+// --- SIMULATION / PACKET TRACER TYPES ---
+
+export interface SimulationStep {
+  deviceId: string;
+  status: 'Process' | 'Success' | 'Drop';
+  description: string;
+  pduInfo: string; // "At Layer 3: Route Lookup..."
+}
+
+export interface PacketSimulation {
+  active: boolean;
+  sourceId: string;
+  destId: string;
+  protocol: 'ICMP' | 'HTTP' | 'SSH';
+  currentStepIndex: number;
+  steps: SimulationStep[];
+}
+
 // --- LEGACY TYPES FOR VIRTUAL TERMINAL ---
 
 export interface TerminalInterface {
@@ -170,4 +193,9 @@ export interface LabScenario {
   deviceType: string;
   initialState: TerminalState;
   validationRules: (state: TerminalState) => boolean;
+}
+
+export interface CommandReference {
+  title: string;
+  commands: { cmd: string, desc: string }[];
 }

@@ -594,66 +594,210 @@ export const VENDOR_GUIDES: VendorGuide[] = [
         guiContext: 'interface'
       },
       {
-        title: 'Essential Commands Reference',
-        cliCommands: `! 1. show running-config
-!    Displays the complete current configuration that is active in the device's memory (RAM).
+        title: 'Top 20 Essential Commands (Router)',
+        cliCommands: `! 1. show running-config - Displays current active config.
 show running-config
 
-! 2. show startup-config
-!    Displays the configuration file stored in non-volatile memory (NVRAM).
-show startup-config
-
-! 3. show ip interface brief
-!    Provides a quick, one-line summary of all interfaces, status, and IP.
-show ip interface brief
-
-! 4. show interface <interface>
-!    Displays detailed statistics, operational status, and Layer 2/3 info.
-show interface GigabitEthernet0/0
-
-! 5. show ip route
-!    Displays the device's complete routing table (FIB).
-show ip route
-
-! 6. show version
-!    Displays system hardware, software version, hostname, and uptime.
+! 2. show version - Hardware, software version, uptime.
 show version
 
-! 7. show clock
-!    Displays the current system date and time.
-show clock
+! 3. show ip interface brief - Quick IP status summary.
+show ip interface brief
 
-! 8. show history
-!    Lists the most recently executed commands.
-show history
+! 4. show ip route - Routing table (connected, static, dynamic).
+show ip route
 
-! 9. ping <ip_address>
-!    Sends ICMP echo requests to verify basic Layer 3 connectivity.
-ping 8.8.8.8
+! 5. show interface <int> - Detailed L1/L2 stats.
+show interface Gi0/0
 
-! 10. traceroute <ip_address>
-!    Traces the path (hop-by-hop) to a destination.
-traceroute 8.8.8.8
+! 6. show protocols - Status of routing protocols (OSPF, EIGRP).
+show protocols
 
-! 11. show ospf neighbor
-!    Displays the status of OSPF adjacencies.
-show ospf neighbor
+! 7. show ip nat translations - Active NAT table.
+show ip nat translations
 
-! 12. show bgp summary
-!    Displays a summary of BGP session status.
-show bgp summary
+! 8. show ip access-lists - Configured ACLs.
+show ip access-lists
 
-! 13. show vrrp interface <int>
-!    Displays VRRP status and configuration.
-show vrrp interface GigabitEthernet0/1
+! 9. show cdp neighbors detail - Connected Cisco devices info.
+show cdp neighbors detail
 
-! 14. clear counters <interface>
-!    Resets input/output packet and byte counters.
-clear counters GigabitEthernet0/1`,
-        guiSteps: ['Most validation is done via CLI.', 'Use "Monitor" tab for Interface graphs.'],
+! 10. show log - System logging buffer.
+show log
+
+! 11. show ip ospf neighbor - OSPF Adjacencies.
+show ip ospf neighbor
+
+! 12. show ip bgp summary - BGP peer status.
+show ip bgp summary
+
+! 13. show line - Console/VTY line status.
+show line
+
+! 14. show controllers - Hardware-specific interface info.
+show controllers
+
+! 15. show ipv6 route - IPv6 routing table.
+show ipv6 route
+
+! 16. debug ip packet detail - Real-time packet tracing (Caution!).
+debug ip packet detail
+
+! 17. show ip dhcp binding - DHCP leased addresses.
+show ip dhcp binding
+
+! 18. show ntp associations - Time synchronization status.
+show ntp associations
+
+! 19. clear ip route * - Clear routing table.
+clear ip route *
+
+! 20. show boot - Boot system image info.
+show boot`,
+        guiSteps: [],
         guiContext: 'system'
+      },
+      {
+          title: 'Top 20 Essential Commands (Switch)',
+          cliCommands: `! 1. show running-config - Current active config.
+show running-config
+
+! 2. show vlan brief - VLANs and port assignments.
+show vlan brief
+
+! 3. show mac address-table - L2 forwarding table.
+show mac address-table
+
+! 4. show interfaces status - Port speed/duplex/VLAN summary.
+show interfaces status
+
+! 5. show ip interface brief - SVI/L3 interface status.
+show ip interface brief
+
+! 6. show spanning-tree summary - STP root/mode status.
+show spanning-tree summary
+
+! 7. show etherchannel summary - Port-channel status.
+show etherchannel summary
+
+! 8. show power inline - PoE usage per port.
+show power inline
+
+! 9. show port-security interface - Violation counts/actions.
+show port-security interface Gi0/1
+
+! 10. show interface trunk - Trunking status/allowed VLANs.
+show interface trunk
+
+! 11. show ip dhcp snooping - Snooping trust status.
+show ip dhcp snooping
+
+! 12. show arp - IP-to-MAC mapping table.
+show arp
+
+! 13. show interface counters errors - CRC/Frame errors.
+show interface counters errors
+
+! 14. show version - IOS version/Model.
+show version
+
+! 15. show cdp neighbors - Connected peers.
+show cdp neighbors
+
+! 16. show module - Installed line cards.
+show module
+
+! 17. show route - L3 Routing table (if L3 switch).
+show ip route
+
+! 18. show interface switchport - Detailed L2 config.
+show interface Gi0/1 switchport
+
+! 19. clear mac address-table dynamic - Flush mac table.
+clear mac address-table dynamic
+
+! 20. show access-lists - ACLs (including VACLs).
+show access-lists`,
+          guiSteps: [],
+          guiContext: 'system'
       }
     ]
+  },
+  {
+      id: 'cisco-wlc', vendorId: 'cisco', title: 'Cisco Wireless Controller (WLC/VX)',
+      difficulty: Difficulty.Advanced, description: 'Configuration for Catalyst 9800 and AireOS WLCs.',
+      sections: [
+          {
+              title: 'WLAN Basic Setup (IOS-XE)',
+              cliCommands: `configure terminal\nwlan Demo-SSID 1 Demo-SSID\n no security wpa\n no shutdown\nexit\nap profile default-ap-profile\n wlan Demo-SSID\nexit`,
+              guiSteps: ['Configuration > Tags & Profiles > WLANs', 'Add New WLAN', 'Set Profile Name and SSID', 'Security Tab > Layer 2 > None', 'Apply to Policy Tag'],
+              guiContext: 'system'
+          },
+          {
+              title: 'Top 20 Essential Commands',
+              cliCommands: `! 1. show wlan summary - List configured WLANs/SSIDs.
+show wlan summary
+
+! 2. show ap summary - List connected Access Points.
+show ap summary
+
+! 3. show wireless client summary - Connected clients count.
+show wireless client summary
+
+! 4. show wireless client mac-address <mac> detail - Specific client info.
+show wireless client mac-address aaaa.bbbb.cccc detail
+
+! 5. show tech-support wireless - Tech support dump for wireless.
+show tech-support wireless
+
+! 6. show ap config general <ap-name> - AP details.
+show ap config general AP01
+
+! 7. show wireless tag summary - Policy/Site/RF tags.
+show wireless tag summary
+
+! 8. show wireless profile policy summary - Policy profiles.
+show wireless profile policy summary
+
+! 9. show wireless wps summary - Intrusion prevention stats.
+show wireless wps summary
+
+! 10. show wireless stats client detail - Client statistics.
+show wireless stats client detail
+
+! 11. show logging - System logs.
+show logging
+
+! 12. show ip interface brief - Interface IP status.
+show ip interface brief
+
+! 13. show run wlan - Show running config for WLANs.
+show run wlan
+
+! 14. show platform software - System resource usage.
+show platform software status control-processor brief
+
+! 15. show ap dot11 5ghz summary - 5GHz Radio stats.
+show ap dot11 5ghz summary
+
+! 16. show wireless mobility summary - Roaming/Mobility group status.
+show wireless mobility summary
+
+! 17. show radius statistics - Radius server stats.
+show radius statistics
+
+! 18. show aaa servers - Authentication servers.
+show aaa servers
+
+! 19. show cdp neighbors - Connected neighbors.
+show cdp neighbors
+
+! 20. show version - System version.
+show version`,
+              guiSteps: [],
+              guiContext: 'system'
+          }
+      ]
   },
   {
       id: 'juniper-junos', vendorId: 'juniper', title: 'Juniper Junos OS',
@@ -661,62 +805,136 @@ clear counters GigabitEthernet0/1`,
       sections: [
           {
               title: 'Essential Commands Reference',
-              cliCommands: `# 1. show configuration
-#    Displays the current committed configuration.
-show configuration
-
-# 2. show interfaces terse
-#    Concise summary of interfaces and IPs.
+              cliCommands: `show configuration`,
+              guiSteps: [],
+              guiContext: 'system'
+          },
+          {
+              title: 'Top 20 Essential Commands (SRX)',
+              cliCommands: `# 1. show interfaces terse - Interface status summary.
 show interfaces terse
 
-# 3. show interfaces
-#    Detailed statistics and counters.
-show interfaces
-
-# 4. show route
-#    Displays the forwarding/routing table.
+# 2. show route - Routing table.
 show route
 
-# 5. show version
-#    Displays Junos OS version and hardware details.
-show version
+# 3. show security flow session summary - Active session count.
+show security flow session summary
 
-# 6. show system uptime
-#    Displays total operating time since reboot.
+# 4. show security policies hit-count - Policy usage stats.
+show security policies hit-count
+
+# 5. show security nat source pool all - SNAT pools.
+show security nat source pool all
+
+# 6. show security nat destination detail - DNAT/Port Forwarding.
+show security nat destination detail
+
+# 7. show configuration | display set - Config as set commands.
+show configuration | display set
+
+# 8. show security log - Traffic/Threat logs.
+show security log
+
+# 9. show security zones - Zone configuration.
+show security zones
+
+# 10. show security zones security-policy - Inter-zone rules.
+show security zones security-policy
+
+# 11. show system uptime - Uptime.
 show system uptime
 
-# 7. show cli history
-#    Displays command history.
-show cli history
+# 12. monitor traffic interface - Packet capture.
+monitor traffic interface ge-0/0/0
 
-# 8. ping <ip_address>
-#    Tests Layer 3 reachability.
-ping 8.8.8.8
+# 13. show security ike security-associations - VPN Phase 1.
+show security ike security-associations
 
-# 9. traceroute <ip_address>
-#    Traces route to destination.
-traceroute 8.8.8.8
+# 14. show security ipsec security-associations - VPN Phase 2.
+show security ipsec security-associations
 
-# 10. show ospf neighbor
-#    Displays OSPF neighbor status.
-show ospf neighbor
+# 15. show security flow session table - Detailed session list.
+show security flow session table
 
-# 11. show bgp summary
-#    Displays BGP session status.
-show bgp summary
+# 16. show security address-book - Address objects.
+show security address-book
 
-# 12. show vrrp interface <interface>
-#    Displays VRRP status.
-show vrrp interface ge-0/0/0
+# 17. request system software status - Version/License.
+request system software status
 
-# 13. show log messages
-#    Displays system logs and events.
-show log messages
+# 18. show route table - Specific VRF/Table.
+show route table inet.0
 
-# 14. clear interface statistics <interface>
-#    Clears operational counters.
-clear interface statistics ge-0/0/0`,
-              guiSteps: ['Navigate to Monitor > Interfaces', 'Navigate to Monitor > Routing'],
+# 19. show system users - Logged in admins.
+show system users
+
+# 20. show ospf neighbor - OSPF peers.
+show ospf neighbor`,
+              guiSteps: [],
+              guiContext: 'system'
+          },
+          {
+              title: 'Top 20 Essential Commands (EX Switch)',
+              cliCommands: `# 1. show interfaces terse - L2/L3 Status.
+show interfaces terse
+
+# 2. show vlans - VLANs and member ports.
+show vlans
+
+# 3. show ethernet-switching table - MAC Table.
+show ethernet-switching table
+
+# 4. show lacp interfaces - Link Aggregation.
+show lacp interfaces
+
+# 5. show spanning-tree interface - STP Status.
+show spanning-tree interface
+
+# 6. show poe interface - PoE usage.
+show poe interface
+
+# 7. show configuration vlans - VLAN config section.
+show configuration vlans
+
+# 8. show configuration interfaces - Interface config section.
+show configuration interfaces
+
+# 9. show version - Junos version/Model.
+show version
+
+# 10. show route table default - Switch routing table.
+show route table default
+
+# 11. show route protocol direct - Connected routes.
+show route protocol direct
+
+# 12. show interfaces diagnostics optics - SFP Light levels.
+show interfaces diagnostics optics
+
+# 13. show log messages | match - Search logs.
+show log messages | match error
+
+# 14. clear ethernet-switching table - Flush MAC table.
+clear ethernet-switching table
+
+# 15. show system alarms - Active hardware alarms.
+show system alarms
+
+# 16. show virtual-chassis - Stack status.
+show virtual-chassis
+
+# 17. show configuration system host-name - Hostname.
+show configuration system host-name
+
+# 18. show interfaces queue - QoS stats.
+show interfaces queue
+
+# 19. show interfaces detail - Comprehensive stats/errors.
+show interfaces detail ge-0/0/0
+
+# 20. show network-access aaa statistics - Dot1x/Radius stats.
+show network-access aaa statistics`,
+              guiSteps: [],
               guiContext: 'system'
           }
       ]
@@ -730,6 +948,70 @@ clear interface statistics ge-0/0/0`,
               cliCommands: `config system interface\n edit port1\n  set mode static\n  set ip 192.168.1.99 255.255.255.0\n  set allowaccess http https ssh ping\n next\nend`,
               guiSteps: ['Network > Interfaces', 'Double Click port1', 'Set Addressing Mode to Manual', 'Enter IP/Netmask', 'Enable HTTPS, SSH, PING'],
               guiContext: 'interface'
+          },
+          {
+              title: 'Top 20 Essential Commands',
+              cliCommands: `# 1. get system status - Version, Serial, Uptime.
+get system status
+
+# 2. get system interface physical - Link status.
+get system interface physical
+
+# 3. show firewall policy - All security rules.
+show firewall policy
+
+# 4. show router static - Static routes.
+show router static
+
+# 5. get router info routing-table all - Routing table.
+get router info routing-table all
+
+# 6. diag sys session list - Active sessions/NAT.
+diag sys session list
+
+# 7. get system performance status - CPU/RAM usage.
+get system performance status
+
+# 8. diag debug flow filter clear - Reset debug filter.
+diag debug flow filter clear
+
+# 9. diag debug flow filter addr - Filter debug by IP.
+diag debug flow filter addr 1.1.1.1
+
+# 10. diag debug flow trace start 99 - Start packet trace.
+diag debug flow trace start 99
+
+# 11. diag debug flow trace stop - Stop packet trace.
+diag debug flow trace stop
+
+# 12. show firewall address - Address objects.
+show firewall address
+
+# 13. show user summary - Auth users.
+show user summary
+
+# 14. execute ping - Connectivity test.
+execute ping 8.8.8.8
+
+# 15. execute traceroute - Path trace.
+execute traceroute 8.8.8.8
+
+# 16. execute date - System time.
+execute date
+
+# 17. diagnose sys top - Top processes.
+diagnose sys top
+
+# 18. show vpn ipsec phase1-interface - VPN Config.
+show vpn ipsec phase1-interface
+
+# 19. diagnose vpn ipsec status - VPN Status.
+diagnose vpn ipsec status
+
+# 20. show log memory setting - Logging config.
+show log memory setting`,
+              guiSteps: [],
+              guiContext: 'system'
           }
       ]
   },
@@ -742,6 +1024,70 @@ clear interface statistics ge-0/0/0`,
               cliCommands: `configure\nset network interface ethernet ethernet1/1 layer3 ip 10.0.0.1/24\nset network zone trust layer3 ethernet1/1\ncommit`,
               guiSteps: ['Network > Interfaces > Ethernet1/1', 'Interface Type: Layer3', 'IPv4 Tab: Add IP', 'Network > Zones', 'Add "Trust" Zone, add eth1/1'],
               guiContext: 'interface'
+          },
+          {
+              title: 'Top 20 Essential Commands',
+              cliCommands: `# 1. show system info - Version, Serial, Uptime.
+show system info
+
+# 2. show interface all - Interfaces & IPs.
+show interface all
+
+# 3. show routing route - Routing table.
+show routing route
+
+# 4. show running security-policy - Active rules.
+show running security-policy
+
+# 5. show session all - Active sessions.
+show session all
+
+# 6. test security-policy-match - Policy simulator.
+test security-policy-match from Trust to Untrust ...
+
+# 7. show session info - Session table limits.
+show session info
+
+# 8. show high-availability state - HA status.
+show high-availability state
+
+# 9. show log system - System logs.
+show log system
+
+# 10. show log traffic - Traffic logs.
+show log traffic
+
+# 11. show counter global - Drop counters.
+show counter global
+
+# 12. ping source - Ping from specific int.
+ping source 10.0.0.1 host 8.8.8.8
+
+# 13. show network interface-management - Mgmt profiles.
+show network interface-management
+
+# 14. show running nat-policy - NAT rules.
+show running nat-policy
+
+# 15. show user ip-user-mapping all - User-ID table.
+show user ip-user-mapping all
+
+# 16. show system resources - CPU/RAM/Disk.
+show system resources
+
+# 17. show system state filter - State table.
+show system state filter sys.s1.p1.limit
+
+# 18. show routing fib virtual-router default - FIB.
+show routing fib virtual-router default
+
+# 19. show running application - App-ID objects.
+show running application
+
+# 20. clear session all - Reset session table.
+clear session all`,
+              guiSteps: [],
+              guiContext: 'system'
           }
       ]
   }
@@ -749,7 +1095,7 @@ clear interface statistics ge-0/0/0`,
 
 // --- LAB SESSIONS (V3 - SOW HYBRID INSTANCES) ---
 
-const createDevice = (id: string, name: string, type: 'Router'|'Switch'|'Firewall'|'AccessPoint'|'Cloud', vendor: 'Cisco'|'Juniper'|'Fortinet'|'Palo Alto'|'Aruba'|'Extreme'|'Internet', initialConfig?: Partial<DeviceState>): DeviceState => ({
+const createDevice = (id: string, name: string, type: 'Router'|'Switch'|'Firewall'|'AccessPoint'|'Cloud', vendor: 'Cisco'|'Juniper'|'Fortinet'|'Palo Alto'|'Aruba'|'Extreme'|'Internet'|'Azure', initialConfig?: Partial<DeviceState>): DeviceState => ({
     id, name, type, vendor,
     cliMode: 'user', cliContext: [],
     interfaces: initialConfig?.interfaces || {},
@@ -980,6 +1326,76 @@ end
         initialConfig: `... See Instance C for Juniper and Instance B for Palo Alto details ...`,
         packetFlow: `Combined flow of Juniper Switching/Routing logic and Palo Alto Zone-based Security logic.`
     }
+  },
+  {
+    id: 'lab-instance-e',
+    title: 'Instance E: Cloud Security (NSG Integration)',
+    description: 'Azure Cloud Lab. Configure Network Security Groups (NSG) and VNet Peering to secure VM traffic.',
+    difficulty: Difficulty.Intermediate,
+    vendor: 'Hybrid',
+    devices: {
+        'dev-client': createDevice('dev-client', 'User-PC', 'AccessPoint', 'Internet', { interfaces: { 'eth0': { name: 'eth0', ip: '203.0.113.100', mask: '255.255.255.0', up: true } } }),
+        'dev-isp': createDevice('dev-isp', 'Internet', 'Cloud', 'Internet', { interfaces: { 'eth0': { name: 'eth0', ip: '203.0.113.1', mask: '255.255.255.0', up: true } } }),
+        'dev-gw': createDevice('dev-gw', 'VNet-GW', 'Router', 'Azure', { 
+            interfaces: { 
+                'Public': { name: 'PublicIP', ip: '20.1.1.1', mask: '255.255.255.255', up: true },
+                'Private': { name: 'VNet-Subnet', ip: '10.1.0.1', mask: '255.255.255.0', up: true }
+            },
+            policies: [
+                { id: 1, name: 'Default-Allow-VNet', action: 'allow', priority: 65000, protocol: '*', destPort: '*' },
+                { id: 2, name: 'Deny-All-Inbound', action: 'deny', priority: 65500, protocol: '*', destPort: '*' }
+            ]
+        }),
+        'dev-vm': createDevice('dev-vm', 'App-VM', 'AccessPoint', 'Azure', { 
+            interfaces: { 'eth0': { name: 'eth0', ip: '10.1.0.4', mask: '255.255.255.0', up: true } },
+            history: ['Azure VM Agent Ready', 'Listening on Port 80 (HTTP)'] 
+        })
+    },
+    topology: [
+        { deviceId: 'dev-client', label: 'Remote User', icon: 'AccessPoint', x: 50, y: 150 },
+        { deviceId: 'dev-isp', label: 'Internet', icon: 'Cloud', x: 300, y: 150 },
+        { deviceId: 'dev-gw', label: 'Azure VNet GW', icon: 'Router', x: 550, y: 150 },
+        { deviceId: 'dev-vm', label: 'App VM', icon: 'AccessPoint', x: 800, y: 150 }
+    ],
+    objectives: ['Allow Inbound HTTP (80) via NSG', 'Deny All Inbound SSH', 'Verify Effective Routes'],
+    documentation: {
+        initialConfig: `# Azure PowerShell\n$nsg = Get-AzNetworkSecurityGroup -Name "App-NSG"\nAdd-AzNetworkSecurityRuleConfig -Name "AllowHTTP" -Access Allow -Protocol Tcp -Direction Inbound -Priority 100 -SourceAddressPrefix Internet -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 80`,
+        packetFlow: `User -> Internet -> Azure VNet GW -> NSG Evaluation -> VM. The simulation checks against active NSG rules on the Gateway.`
+    }
+  },
+  {
+      id: 'lab-packet-tracer',
+      title: 'Packet Tracer Simulation Playground',
+      description: 'Visual sandbox mode. Experiment with traffic flow, protocol analysis (HTTP, ICMP, SSH), and visual topology in a multi-vendor environment.',
+      difficulty: Difficulty.Beginner,
+      vendor: 'Hybrid',
+      devices: {
+          'dev-pc1': createDevice('dev-pc1', 'PC-1', 'AccessPoint', 'Cisco', { interfaces: { 'eth0': { name: 'eth0', ip: '192.168.1.10', mask: '255.255.255.0', up: true } } }),
+          'dev-sw1': createDevice('dev-sw1', 'Switch-1', 'Switch', 'Cisco', { interfaces: { 'vlan1': { name: 'vlan1', ip: '192.168.1.2', mask: '255.255.255.0', up: true } } }),
+          'dev-rtr1': createDevice('dev-rtr1', 'Router-1', 'Router', 'Cisco', { 
+              interfaces: { 
+                  'gi0/0': { name: 'gi0/0', ip: '192.168.1.1', mask: '255.255.255.0', up: true },
+                  'gi0/1': { name: 'gi0/1', ip: '10.0.0.1', mask: '255.255.255.252', up: true }
+              }
+          }),
+          'dev-fw1': createDevice('dev-fw1', 'Firewall-1', 'Firewall', 'Palo Alto', {
+              interfaces: { 'eth1/1': { name: 'eth1/1', ip: '10.0.0.2', mask: '255.255.255.252', up: true } },
+              policies: [{ id: 1, name: 'Permit-Any', action: 'allow', srcAddr: 'any', dstAddr: 'any' }]
+          }),
+          'dev-server': createDevice('dev-server', 'Web-Server', 'AccessPoint', 'Cisco', { interfaces: { 'eth0': { name: 'eth0', ip: '10.0.0.100', mask: '255.255.255.0', up: true } } })
+      },
+      topology: [
+          { deviceId: 'dev-pc1', label: 'PC-1', icon: 'AccessPoint', x: 50, y: 150 },
+          { deviceId: 'dev-sw1', label: 'Switch-1', icon: 'Switch', x: 250, y: 150 },
+          { deviceId: 'dev-rtr1', label: 'Router-1', icon: 'Router', x: 450, y: 150 },
+          { deviceId: 'dev-fw1', label: 'Firewall', icon: 'Firewall', x: 650, y: 150 },
+          { deviceId: 'dev-server', label: 'Server', icon: 'AccessPoint', x: 850, y: 150 }
+      ],
+      objectives: ['Use "Simulation" tab to visualize HTTP traffic', 'Observe PDU information at each hop'],
+      documentation: {
+          initialConfig: `! Sandbox Mode\n! Devices pre-configured for reachability.\n! Use the Simulation Tab to generate traffic.`,
+          packetFlow: `Dynamic flow based on user selection in Simulation View.`
+      }
   }
 ];
 
